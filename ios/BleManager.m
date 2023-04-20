@@ -524,6 +524,9 @@ RCT_EXPORT_METHOD(checkState:(nonnull RCTResponseSenderBlock)callback)
 
         NSString *stateName = [self centralManagerStateToString:self.manager.state];
         callback(@[stateName]);
+    } else {
+        [self sendEventWithName:@"BleManagerDidUpdateState" body:@{@"state": @"unavailable"}];
+        callback(@[@"unavailable"]);
     }
 }
 
