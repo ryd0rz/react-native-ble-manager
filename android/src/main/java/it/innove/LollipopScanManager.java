@@ -127,6 +127,7 @@ public class LollipopScanManager extends ScanManager {
                                 WritableMap map = Arguments.createMap();
                                 map.putInt("status", 10);
                                 bleManager.sendEvent("BleManagerStopScan", map);
+                                callback.invoke();
                             }
                         }
                     });
@@ -135,8 +136,9 @@ public class LollipopScanManager extends ScanManager {
 
             };
             thread.start();
+        } else {
+            callback.invoke();
         }
-        callback.invoke();
     }
 
     private void onDiscoveredPeripheral(final ScanResult result) {
