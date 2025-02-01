@@ -48,19 +48,7 @@
         "!**/.*"
     ],
     "scripts": {
-        "version": "git add -A",
-        "clean": "rimraf dist",
-        "type:check": "tsc -p tsconfig.json --noEmit",
-        "build:plugin": "tsc --build plugin",
-        "clean:plugin": "expo-module clean plugin",
-        "prepare": "npm run build",
-        "prebuild": "npm run clean && npm run clean:plugin",
-        "build:cjs": "tsc --module commonjs --outDir dist/cjs",
-        "build:esm": "tsc --outDir dist/esm",
-        "build": "npm run build:esm && npm run build:cjs && npm run build:plugin",
-        "watch": "npm run build --watch",
-        "preversion": "npm run build",
-        "postversion": "git push --follow-tags"
+
     },
     "resolutions": {
         "@types/react": "^18.2.44"
