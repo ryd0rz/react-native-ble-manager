@@ -214,7 +214,7 @@ class BleManager extends NativeBleManagerSpec {
     private final Map<String, Peripheral> peripherals = new LinkedHashMap<>();
     // scan session id
 
-    private Callback mEventEmitterCallback;
+    public Callback mEventEmitterCallback;
 
     public BleManager(ReactApplicationContext reactContext) {
         super(reactContext);
