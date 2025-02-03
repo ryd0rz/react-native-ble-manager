@@ -537,8 +537,7 @@ import CoreBluetooth
             let stateName = Helper.centralManagerStateToString(manager.state)
             callback([stateName])
         } else {
-            let stateName = Helper.centralManagerStateToString("unavailable")
-            callback([stateName])
+            callback(["unavailable"])
         }
     }
     
