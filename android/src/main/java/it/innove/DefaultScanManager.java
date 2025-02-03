@@ -184,7 +184,9 @@ public class DefaultScanManager extends ScanManager {
 
                                 WritableMap map = Arguments.createMap();
                                 map.putInt("status", 10);
-                                bleManager.emitOnStopScan(map);
+
+                                bleManager.mEventEmitterCallback.invoke("onStopScan", map);
+                                // bleManager.emitOnStopScan(map);
                             }
                         }
                     });
@@ -221,7 +223,8 @@ public class DefaultScanManager extends ScanManager {
         bleManager.savePeripheral(peripheral);
 
         WritableMap map = peripheral.asWritableMap();
-        bleManager.emitOnDiscoverPeripheral(map);
+        bleManager.mEventEmitterCallback.invoke("onDiscoverPeripheral", map);
+        // bleManager.emitOnDiscoverPeripheral(map);
     }
 
     private final ScanCallback mScanCallback = new ScanCallback() {
@@ -256,7 +259,9 @@ public class DefaultScanManager extends ScanManager {
             isScanning = false;
             WritableMap map = Arguments.createMap();
             map.putInt("status", errorCode);
-            bleManager.emitOnStopScan(map);
+
+            bleManager.mEventEmitterCallback.invoke("onStopScan", map);
+            // bleManager.emitOnStopScan(map);
         }
     };
 

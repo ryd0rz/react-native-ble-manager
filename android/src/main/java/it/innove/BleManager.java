@@ -141,7 +141,8 @@ class BleManager extends NativeBleManagerSpec {
                 WritableMap map = Arguments.createMap();
                 map.putString("state", stringState);
                 Log.d(LOG_TAG, "state: " + stringState);
-                emitOnDidUpdateState(map);
+                mEventEmitterCallback.invoke("onDidUpdateState", map);
+                // emitOnDidUpdateState(map);
 
             } else if (action.equals(BluetoothDevice.ACTION_BOND_STATE_CHANGED)) {
                 final int bondState = intent.getIntExtra(BluetoothDevice.EXTRA_BOND_STATE, BluetoothDevice.ERROR);
@@ -186,7 +187,8 @@ class BleManager extends NativeBleManagerSpec {
                         peripheral = new Peripheral(device, bleManager);
                     }
                     WritableMap map = peripheral.asWritableMap();
-                    emitOnPeripheralDidBond(map);
+                    mEventEmitterCallback.invoke("onPeripheralDidBond", map);
+                    // emitOnPeripheralDidBond(map);
                 }
 
                 if (removeBondRequest != null && removeBondRequest.uuid.equals(device.getAddress())
@@ -374,7 +376,8 @@ class BleManager extends NativeBleManagerSpec {
             scanManager.stopScan(callback);
             WritableMap map = Arguments.createMap();
             map.putInt("status", 0);
-            emitOnStopScan(map);
+            mEventEmitterCallback.invoke("onStopScan", map);
+            // emitOnStopScan(map);
         }
     }
 
@@ -731,7 +734,8 @@ class BleManager extends NativeBleManagerSpec {
         WritableMap map = Arguments.createMap();
         map.putString("state", state);
         Log.d(LOG_TAG, "state:" + state);
-        emitOnDidUpdateState(map);
+        // emitOnDidUpdateState(map);
+        mEventEmitterCallback.invoke("onDidUpdateState", map);
         callback.invoke(state);
     }
 

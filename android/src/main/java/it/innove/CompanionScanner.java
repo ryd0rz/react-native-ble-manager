@@ -71,12 +71,14 @@ public class CompanionScanner {
                     if (peripheral != null && scanCallback != null) {
                         scanCallback.invoke(null, peripheral.asWritableMap());
                         scanCallback = null;
-                        bleManager.emitOnCompanionPeripheral(peripheral.asWritableMap());
+                        bleManager.mEventEmitterCallback.invoke("onCompanionPeripheral", peripheral.asWritableMap());
+                        // bleManager.emitOnCompanionPeripheral(peripheral.asWritableMap());
                     }
                 } else {
                     scanCallback.invoke(null, null);
                     scanCallback = null;
-                    bleManager.emitOnCompanionPeripheral(null);
+                    bleManager.mEventEmitterCallback.invoke("onCompanionPeripheral", null);
+                    // bleManager.emitOnCompanionPeripheral(null);
                 }
             } else {
                 // No device, user cancelled?
@@ -88,7 +90,8 @@ public class CompanionScanner {
                 scanCallback.invoke(null, peripheral != null ? peripheral.asWritableMap() : null);
                 scanCallback = null;
             }
-            bleManager.emitOnCompanionPeripheral(peripheral != null ? peripheral.asWritableMap() : null);
+            bleManager.mEventEmitterCallback.invoke("onCompanionPeripheral", peripheral != null ? peripheral.asWritableMap() : null);
+            // bleManager.emitOnCompanionPeripheral(peripheral != null ? peripheral.asWritableMap() : null);
         }
     };
 
@@ -145,7 +148,8 @@ public class CompanionScanner {
 
                 WritableMap map = Arguments.createMap();
                 map.putString("error", charSequence.toString());
-                bleManager.emitOnCompanionFailure(map);
+                bleManager.mEventEmitterCallback.invoke("onCompanionFailure", map);
+                // bleManager.emitOnCompanionFailure(map);
             }
 
             @Override
@@ -166,7 +170,8 @@ public class CompanionScanner {
 
                     WritableMap map = Arguments.createMap();
                     map.putString("error", msg);
-                    bleManager.emitOnCompanionFailure(map);
+                    bleManager.mEventEmitterCallback.invoke("onCompanionFailure", map);
+                    // bleManager.emitOnCompanionFailure(map);
                 }
             }
         }, null);

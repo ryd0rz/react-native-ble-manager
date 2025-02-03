@@ -101,7 +101,8 @@ public class Peripheral extends BluetoothGattCallback {
         if (status != -1) {
             map.putInt("status", status);
         }
-        bleManager.emitOnConnectPeripheral(map);
+        bleManager.mEventEmitterCallback.invoke("onConnectPeripheral", map);
+        // bleManager.emitOnConnectPeripheral(map);
         Log.d(BleManager.LOG_TAG, "Peripheral connected:" + device.getAddress());
     }
 
@@ -111,7 +112,8 @@ public class Peripheral extends BluetoothGattCallback {
         if (status != -1) {
             map.putInt("status", status);
         }
-        bleManager.emitOnDisconnectPeripheral(map);
+        bleManager.mEventEmitterCallback.invoke("onDisconnectPeripheral", map);
+        // bleManager.emitOnDisconnectPeripheral(map);
         Log.d(BleManager.LOG_TAG, "Peripheral disconnected:" + device.getAddress());
     }
 
@@ -462,7 +464,8 @@ public class Peripheral extends BluetoothGattCallback {
                 map.putString("characteristic", charString);
                 map.putString("service", service);
                 map.putArray("value", BleManager.bytesToWritableArray(dataValue));
-                bleManager.emitOnDidUpdateValueForCharacteristic(map);
+                bleManager.mEventEmitterCallback.invoke("onDidUpdateValueForCharacteristic", map);
+                // bleManager.emitOnDidUpdateValueForCharacteristic(map);
 
                 // Check if rest exists. If so it needs to be added to the clean buffer
                 dataValue = rest;
